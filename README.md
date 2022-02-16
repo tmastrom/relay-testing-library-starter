@@ -72,7 +72,7 @@ As a user, I can:
 
 ## Step 4: Build TodoList components
 
-1. Build `TodoList` and `TodoListItem` components, each using a [Relay fragment](https://relay.dev/docs/en/fragment-container) for data.
+1. Build `TodoList` and `TodoListItem` components, each using a [Relay fragment](https://relay.dev/docs/guided-tour/rendering/fragments/) for data.
 2. Ensure that data requirements for each component are specified using GraphQL. Using Graphiql can help you refine this.
 
 ## Step 5: Build CreateTodo component
