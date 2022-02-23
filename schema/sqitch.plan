@@ -2,3 +2,4 @@
 %project=todo_app
 
 todo_appschema 2022-02-23T22:43:21Z Brianna Cerkiewicz <briannacerkiewicz@pop-os> # Add schema for all todo objects.
+todos [todo_appschema] 2022-02-23T22:48:12Z Brianna Cerkiewicz <briannacerkiewicz@pop-os> # Create table to hold todos.
