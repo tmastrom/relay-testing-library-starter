@@ -2,6 +2,6 @@
 
 BEGIN;
 
-DROP TABLE todo_app.todos;
+drop table todo_app.todos;
 
 COMMIT;

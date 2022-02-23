@@ -2,6 +2,6 @@
 
 BEGIN;
 
-CREATE SCHEMA todo_app;
+create schema todo_app;
 
 COMMIT;

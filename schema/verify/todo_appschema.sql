@@ -2,6 +2,6 @@
 
 BEGIN;
 
-SELECT pg_catalog.has_schema_privilege('todo_app', 'usage');
+select pg_catalog.has_schema_privilege('todo_app', 'usage');
 
 ROLLBACK;
