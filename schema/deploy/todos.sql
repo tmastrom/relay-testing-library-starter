@@ -10,7 +10,7 @@ create table todo_app.todos (
     task  text        not null,
     completed boolean   not null default false,
     date_created    timestamptz not null default now(),
-    date_updated    timestamptz not null
+    date_updated    timestamptz not null default now()
 );
 
 COMMIT;
