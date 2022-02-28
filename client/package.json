@@ -10,6 +10,7 @@
     "@types/node": "^16.11.26",
     "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.11",
+    "@types/relay-runtime": "^13.0.2",
     "graphql": "^16.3.0",
     "graphql-compiler": "^1.7.0",
     "http-proxy-middleware": "^2.0.3",
@@ -48,6 +49,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-relay": "^13.0.1",
     "babel-plugin-relay": "^13.1.1",
     "relay-compiler": "^13.1.1"
   }
