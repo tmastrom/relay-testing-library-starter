@@ -50,7 +50,7 @@ return (
   <div className="App">
     <header className="App-header">
       <p>
-        {query != null ? `Query: ${query}` : "Loading"}
+        {query != null ? `Query: ${JSON.stringify(query)}` : "Loading"}
       </p>
     </header>
   </div>
