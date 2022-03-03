@@ -43,7 +43,7 @@ function App(props) {
        
         <div className={"list"}>
           <TodoList query={data} />
-          <CreateTodo />
+         
         </div>
     </div>
   );

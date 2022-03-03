@@ -6,16 +6,21 @@ import Button from "@button-inc/component-library/Button";
 import Input from "@button-inc/component-library/Input";
 import RelayEnvironment from "../RelayEnvironment";
 
-
+// need connection when making new one because relay doesn't have existing id
 const CreateTodoMutation = graphql`
-mutation CreateTodoMutation ($input: CreateTodoInput!) {
-  createTodo(input: $input) { 
-      todo {
-        id
-        task
+mutation CreateTodoMutation (
+  $connections: [ID!]!
+  $input: CreateTodoInput!) {
+    createTodo(input: $input) {
+      todoEdge @appendEdge (connections: $connections) {
+        node {
+          id
+          task
+        }
       }
     }
-}
+  }
+
 `;
 
 function CreateTodo(props) {
@@ -26,7 +31,10 @@ function CreateTodo(props) {
 
     commitMutation(RelayEnvironment, {
       mutation: CreateTodoMutation,
-      variables: {input: {
+      variables: {
+        connections: [props.connectionId],
+        input: {
+        
         todo: {
           task: input
         }
