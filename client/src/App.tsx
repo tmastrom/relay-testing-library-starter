@@ -7,21 +7,15 @@ import {
   usePreloadedQuery,
 } from 'react-relay/hooks';
 import RelayEnvironment from './RelayEnvironment';
+import TodoList from './components/TodoList';
 
 const { Suspense } = React;
 
 // Define a query
+//relay doesn't like it if you spread within a root query
 const AppAllTodosQuery = graphql`
 query AppQuery {
-  allTodos {
-    nodes {
-      id,
-      task,
-      completed,
-      dateCreated,
-      dateUpdated
-    }
-  }
+    ...TodoList_query
 }
 `;
 
@@ -41,11 +35,14 @@ const preloadedQuery = loadQuery(RelayEnvironment, AppAllTodosQuery, {
 //   handling the failure case here.
 function App(props) {
   const data = usePreloadedQuery(AppAllTodosQuery, props.preloadedQuery);
-
+  console.log('data is',data)
   return (
     <div className="App">
       <header className="App-header">
-        <p>{JSON.stringify(data)}</p>
+       
+        <div>
+          <TodoList query={data} />
+        </div>
       </header>
     </div>
   );
@@ -57,11 +54,19 @@ function App(props) {
 //   Relay Environment instance
 // - <Suspense> specifies a fallback in case a child suspends.
 function AppRoot(props) {
-  return (
-    <RelayEnvironmentProvider environment={RelayEnvironment}>
-      <Suspense fallback={'Loading...'}>
+  const component =
+    typeof window !== "undefined" ? (
+      <Suspense fallback="loading">
         <App preloadedQuery={preloadedQuery} />
       </Suspense>
+    ) : (
+      <App preloadedQuery={preloadedQuery} />
+    );
+  return (
+
+
+    <RelayEnvironmentProvider environment={RelayEnvironment}>
+      {component}
     </RelayEnvironmentProvider>
   );
 }
