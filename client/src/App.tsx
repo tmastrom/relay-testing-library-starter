@@ -8,6 +8,7 @@ import {
 } from 'react-relay/hooks';
 import RelayEnvironment from './RelayEnvironment';
 import TodoList from './components/TodoList';
+import CreateTodo from './components/CreateTodo';
 
 const { Suspense } = React;
 
@@ -40,8 +41,9 @@ function App(props) {
       <header className="App-header">
       </header>
        
-        <div>
+        <div className={"list"}>
           <TodoList query={data} />
+          <CreateTodo />
         </div>
     </div>
   );
