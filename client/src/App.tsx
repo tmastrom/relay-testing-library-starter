@@ -35,15 +35,14 @@ const preloadedQuery = loadQuery(RelayEnvironment, AppAllTodosQuery, {
 //   handling the failure case here.
 function App(props) {
   const data = usePreloadedQuery(AppAllTodosQuery, props.preloadedQuery);
-  console.log('data is',data)
   return (
     <div className="App">
       <header className="App-header">
+      </header>
        
         <div>
           <TodoList query={data} />
         </div>
-      </header>
     </div>
   );
 }
