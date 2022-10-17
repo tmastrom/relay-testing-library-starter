@@ -1,17 +1,35 @@
 import TestingHelper from "../src/TestingHelper";
 import { commitMutation, graphql } from "react-relay";
-import { createMockEnvironment, MockPayloadGenerator } from "relay-test-utils";
+import {
+  createMockEnvironment,
+  MockPayloadGenerator,
+  RelayMockEnvironment,
+} from "relay-test-utils";
 import ReactTestRenderer from "react-test-renderer";
+import CreateTodoMutation from "../client/src/components/__generated__/CreateTodoMutation.graphql";
 
 describe("TestingHelper", () => {
   beforeEach(() => {
     jest.restoreAllMocks();
   });
 
-  it("reinit function does what it should (creates an environment, sets an error, creates a mock router", () => {});
+  it("reinit function creates an environment, errorContext, and mock router", () => {
+    const testingHelper = new TestingHelper();
+    testingHelper.reinit();
+    expect(testingHelper.environment).toEqual(expect.anything());
+    expect(testingHelper.errorContext.error).toBe(null);
+    expect(testingHelper.errorContext.setError).toEqual(expect.any(Function));
+    expect(testingHelper.expectMutationToBeCalled).toEqual(
+      expect.any(Function)
+    );
+    expect(testingHelper.reinit).toEqual(expect.any(Function));
+    expect(testingHelper.router).toEqual(expect.any(Object));
+    expect(testingHelper.setMockRouterValues).toEqual(expect.any(Function));
+  });
 
   it("setMockRouterValues function creates a mock router with the desired values", () => {
     const testingHelper = new TestingHelper();
+
     testingHelper.setMockRouterValues({
       pathname: "test-pathname",
       route: "test-route",
@@ -28,64 +46,35 @@ describe("TestingHelper", () => {
 
   it("expectMutationToBeCalled function returns a message when the expected mutation is not called", () => {
     const testingHelper = new TestingHelper();
-
-    // brianna--how to set this up?
-    const mutation = graphql`
-      mutation addEmissionIntensityReportToRevisionMutation(
-        $input: AddEmissionIntensityReportToRevisionInput!
-      ) {
-        addEmissionIntensityReportToRevision(input: $input) {
-          formChanges {
-            id
-            rowId
-            asEmissionIntensityReport {
-              calculatedEiPerformance
-            }
-            newFormData
-            projectRevisionByProjectRevisionId {
-              ...TaskList_projectRevision
-              ...ProjectEmissionIntensityReportForm_projectRevision
-            }
-          }
-        }
-      }
-    `;
-
-    function sendMutation(environment, onCompleted, onError, variables) {
-      commitMutation(environment, {
-        mutation: mutation,
-        onCompleted,
-        onError,
-        variables,
-      });
-    }
+    testingHelper.reinit();
 
     const environment = createMockEnvironment();
-    const onCompleted = jest.fn();
-    sendMutation(environment, onCompleted, jest.fn(), {});
-    // const operation = environment.mock.getMostRecentOperation();
-    // const operationName =
-    //   environment.mock.getMostRecentOperation().fragment.node.name;
+    commitMutation(environment, {
+      mutation: CreateTodoMutation,
+      variables: {},
+    });
 
-    // brianna--best way to test this is to compare the strings?
-    const expected =
-      `Expected mutation testMutation to be called. Mutations called:\n` +
-      `addEmissionIntensityReportToRevisionMutation`;
-
-    const result = testingHelper.expectMutationToBeCalled("testMutation", {}); // brianna--does this actually return the error or do we access it another way
-
-    expect(result).toEqual(expected);
-
-    // resolve the mutation--I don't think this matters for the helper
-    // ReactTestRenderer.act(() => {
-    //   environment.mock.resolve(
-    //     operation,
-    //     MockPayloadGenerator.generate(operation)
-    //   );
-    // });
-
-    // expect(onCompleted).toBeCalled();
+    expect(() => {
+      testingHelper.expectMutationToBeCalled("testMutation", {});
+    }).toThrow(
+      "Expected mutation testMutation to be called. Mutations called:"
+    );
   });
 
-  it("expectMutationToBeCalled function returns a message when the expected variables are not returned", () => {});
+  it("expectMutationToBeCalled function returns a message when the expected variables are not returned", () => {
+    const testingHelper = new TestingHelper();
+    testingHelper.reinit();
+
+    const environment = createMockEnvironment();
+    commitMutation(environment, {
+      mutation: CreateTodoMutation,
+      variables: { test: "test" },
+    });
+
+    expect(() => {
+      testingHelper.expectMutationToBeCalled("CreateTodoMutation", {
+        test: "iwillfail",
+      });
+    }).toThrow("an error");
+  });
 });
