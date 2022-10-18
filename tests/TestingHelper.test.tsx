@@ -48,8 +48,7 @@ describe("TestingHelper", () => {
     const testingHelper = new TestingHelper();
     testingHelper.reinit();
 
-    const environment = createMockEnvironment();
-    commitMutation(environment, {
+    commitMutation(testingHelper.environment, {
       mutation: CreateTodoMutation,
       variables: {},
     });
