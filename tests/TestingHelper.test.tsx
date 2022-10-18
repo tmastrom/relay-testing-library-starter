@@ -56,24 +56,36 @@ describe("TestingHelper", () => {
     expect(() => {
       testingHelper.expectMutationToBeCalled("testMutation", {});
     }).toThrow(
-      "Expected mutation testMutation to be called. Mutations called:"
+      `Expected mutation testMutation to be called. Mutations called:\n` +
+        `CreateTodoMutation`
     );
   });
 
   it("expectMutationToBeCalled function returns a message when the expected variables are not returned", () => {
     const testingHelper = new TestingHelper();
     testingHelper.reinit();
-
-    const environment = createMockEnvironment();
-    commitMutation(environment, {
+    const variables = commitMutation(testingHelper.environment, {
       mutation: CreateTodoMutation,
-      variables: { test: "test" },
+      variables: { connections: "test", input: "test" },
     });
 
     expect(() => {
       testingHelper.expectMutationToBeCalled("CreateTodoMutation", {
         test: "iwillfail",
       });
-    }).toThrow("an error");
+    }).toThrow(
+      `Expected mutation CreateTodoMutation to be called with:` +
+        `
+{
+  "test": "iwillfail"
+}` +
+        `
+received:
+` +
+        `{
+  "connections": "test",
+  "input": "test"
+}`
+    );
   });
 });
