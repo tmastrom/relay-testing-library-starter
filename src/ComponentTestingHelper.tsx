@@ -68,7 +68,8 @@ class ComponentTestingHelper<
       this.options.testQuery,
       this.options.defaultQueryVariables
     );
-    console.log("this", this.options.component);
+    console.log("this", this.options);
+    console.log("this", this.options.component);  //this [Function: TodoList] Check what this is in cif 
     return (
       <this.options.component
         {...getPropsFromTestQuery(data)} // do we even need getPropsFromTestQuery? too CIF-specific?
