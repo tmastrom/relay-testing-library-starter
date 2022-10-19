@@ -14,7 +14,7 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "*": ["*", "../*"]
+      "*": ["*"]
     },
     "allowJs": true,
     "downlevelIteration": true,
