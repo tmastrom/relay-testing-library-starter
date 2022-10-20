@@ -1,6 +1,6 @@
 import TestingHelper from "./TestingHelper";
 import { commitMutation } from "react-relay";
-import CreateTodoMutation from "../src/components/__generated__/CreateTodoMutation.graphql";
+import CreateTodoMutation from "../components/__generated__/CreateTodoMutation.graphql";
 
 describe("TestingHelper", () => {
   beforeEach(() => {

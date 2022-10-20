@@ -1,3 +1,4 @@
+import React from "react";
 import { render } from "@testing-library/react";
 import { MockPayloadGenerator } from "relay-test-utils";
 import { RelayEnvironmentProvider, useLazyLoadQuery } from "react-relay";
