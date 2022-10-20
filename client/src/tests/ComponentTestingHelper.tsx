@@ -1,7 +1,3 @@
-// remove errorcontextprovider and router (cause it's in next
-// next stuff in a separate package, thi pakage is about relay
-// only do component testing helper, combine with testing helper
-// v1.1 give component testing helper an array of context providers and their initial value, work as a generic solution
 import React from "react";
 import { render } from "@testing-library/react";
 import { MockPayloadGenerator } from "relay-test-utils";
@@ -68,14 +64,10 @@ class ComponentTestingHelper<
       this.options.testQuery,
       this.options.defaultQueryVariables
     );
-    console.log("this", this.options);
-    console.log("this", this.options.component);  //this [Function: TodoList] Check what this is in cif 
-    return (
-      <this.options.component
-        {...getPropsFromTestQuery(data)} // do we even need getPropsFromTestQuery? too CIF-specific?
-        {...extraProps}
-      />
-    );
+    console.log("this.options", this.options);
+    console.log("this.options.component", this.options.component);
+    const Component = this.options.component;
+    return <Component {...getPropsFromTestQuery(data)} {...extraProps} />;
   };
 
   public renderComponent(
