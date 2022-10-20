@@ -1,5 +1,4 @@
 import React from "react";
-import "../App.css";
 import {commitMutation} from 'react-relay';
 import { graphql } from "babel-plugin-relay/macro";
 import Button from "@button-inc/component-library/Button";

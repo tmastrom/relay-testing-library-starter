@@ -1,5 +1,4 @@
 import React from 'react';
-import '../App.css';
 import {graphql} from 'babel-plugin-relay/macro';
 import { useFragment, commitMutation } from 'react-relay/hooks';
 import type {TodoListItem_todo$key} from './__generated__/TodoListItem_todo.graphql';

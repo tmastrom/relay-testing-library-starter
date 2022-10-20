@@ -1,5 +1,4 @@
 import React from 'react';
-import '../App.css';
 import graphql from 'babel-plugin-relay/macro';
 import TodoListItem from './TodoListItem';
 import { TodoList_query$key } from './__generated__/TodoList_query.graphql';
